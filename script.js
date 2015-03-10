@@ -7,13 +7,25 @@ function define() {
   document.getElementById('wordoutput').innerHTML = word.toLowerCase();
   
   // Use Jquery to grab from dictionary and change elements when done.
-  $.getJSON( url, function( json ) {
-    console.log( "JSON Data: " + json.text[1])
-    ("#definition").text(json.text[1]);
-  });
-  $.getJSON( url2, function( json ) {
-    console.log( "JSON Data: " + json.text[1])
-    ("#definition").text(json.raw[1]);
-  });
+  $.ajax({
+      type: "GET",
+      url: url,
+      dataType: "json",
+      async: true,
+      cache: false,
+      success: function(data){ 
+        $("#define").text(data.text);
+      });
+  $.ajax({
+      type: "GET",
+      url: url2,
+      dataType: "json",
+      async: true,
+      cache: false,
+      success: function(data){
+        $("#pronunciation").text(data.raw);
+      }
+      });
+  
   
 }
