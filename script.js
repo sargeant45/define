@@ -12,7 +12,7 @@ function define() {
   success: function (data) {
       console.log(data)
       alert(data)
-      $("#define").text(data.items[7]);
+      $("#define").text(data.text);
     }
   });
   $.ajax({
@@ -20,7 +20,7 @@ function define() {
   success: function (data) {
       console.log(data)
       alert(data)
-      $("#pronunciation").text(data.items[3]);
+      $("#pronunciation").text(data.raw);
     }
   });
   
