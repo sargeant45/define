@@ -1,42 +1,27 @@
 function define() {
   var word = $("#word").val();
-  var url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/" + word + "?key=6171866a-33a7-4f70-b763-b8ffe73184b2"
+  var url = "http://api.wordnik.com:80/v4/word.json/" + word.toLowerCase() + "/definitions?limit=200&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+  var url2 = "http://api.wordnik.com:80/v4/word.json/" + word.toLowerCase() + "/pronunciations?useCanonical=false&typeFormat=ahd&limit=50&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
   
-  // CORS requesting time!
-  var request = createCORSRequest( "get", url);
-  if ( request ){
-      // Define a callback function
-      request.onload = function(){};
-      // Send request
-      request.send();
-  }
+  // set word
+  document.getElementById('wordoutput').innerHTML = word.toLowerCase();
   
   // Use Jquery to grab from dictionary and change elements when done.
   $.ajax({
   url: url,
-  crossDomain: true,
   success: function (data) {
       console.log(data)
       alert(data)
-      $("#word").html(data.hw)
-      $("#pronunciation").html(data.pr)
-      $("#define").html(data.def);
+      $("#define").text(data.items[7]);
+    }
+  });
+  $.ajax({
+  url: url2,
+  success: function (data) {
+      console.log(data)
+      alert(data)
+      $("#pronunciation").text(data.items[3]);
     }
   });
   
-}
-
-function createCORSRequest(method, url){
-  // CORS request method thingy I found on http://jquery-howto.blogspot.com/2013/09/jquery-cross-domain-ajax-request.html#cors
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr){
-        // XHR has 'withCredentials' property only if it supports CORS
-        xhr.open(method, url, true);
-    } else if (typeof XDomainRequest != "undefined"){ // if IE use XDR
-        xhr = new XDomainRequest();
-        xhr.open(method, url);
-    } else {
-        xhr = null;
-    }
-    return xhr;
 }
