@@ -7,12 +7,12 @@ function define() {
   url: url,
   crossDomain: true,
   success: function (data) {
-    console.log(data)
-    alert(data);
-    $("#word").html(data.hw);
-    $("#pronunciation").html(data.pr);
-    $("#define").html(data.def);
-  }
-});
+      console.log(data)
+      alert(data)
+      $("#word").html(data.hw)
+      $("#pronunciation").html(data.pr)
+      $("#define").html(data.def);
+    }
+  });
   
 }
